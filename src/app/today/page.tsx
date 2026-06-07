@@ -137,6 +137,7 @@ export default function TodayPage() {
         width: "100%",
       }}
     >
+      <TodayStyles />
       {/* Date label */}
       <p
         style={{
@@ -164,7 +165,7 @@ export default function TodayPage() {
                   display: "flex",
                   alignItems: "center",
                   padding: "var(--ff-padding-card)",
-                  background: isSelected ? "var(--ff-ocean-50)" : "var(--ff-surface)",
+                  background: isSelected ? "var(--ff-ocean-100)" : "var(--ff-surface)",
                   border: `0.5px solid ${isSelected ? "var(--ff-ocean-400)" : "var(--ff-ocean-100)"}`,
                   borderRadius: "var(--ff-radius-md)",
                   gap: "var(--ff-space-3)",
@@ -180,6 +181,7 @@ export default function TodayPage() {
                   onChange={(e) => updateSlotName(i, e.target.value)}
                   onFocus={() => setSelectedIndex(i)}
                   placeholder={i === 0 ? "What's the most important thing today?" : ""}
+                  className={i === 0 ? "ff-primary-task" : undefined}
                   style={{
                     flex: 1,
                     border: "none",
@@ -311,7 +313,8 @@ export default function TodayPage() {
             fontSize: "11px",
             color: "var(--ff-ink-muted)",
             cursor: "pointer",
-            padding: "4px 0 var(--ff-space-2)",
+            padding: "var(--ff-space-3) 0",
+            minHeight: "44px",
             textAlign: "left",
           }}
         >
@@ -319,6 +322,19 @@ export default function TodayPage() {
         </button>
       )}
     </main>
+  );
+}
+
+function TodayStyles() {
+  return (
+    <style>{`
+      .ff-primary-task::placeholder {
+        font-size: 11px;
+        font-style: italic;
+        color: var(--ff-ink-muted);
+        opacity: 0.7;
+      }
+    `}</style>
   );
 }
 

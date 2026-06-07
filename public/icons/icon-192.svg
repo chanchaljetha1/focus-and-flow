@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#2E7D8A"/>
+  <!-- Leaf shape centred -->
+  <path d="M96 148 C96 148 62 128 62 100 C62 78 78 62 96 62 C114 62 130 78 130 100 C130 128 96 148 96 148Z" fill="#A8D5DB" opacity="0.9"/>
+  <line x1="96" y1="148" x2="96" y2="76" stroke="#F0F7F8" stroke-width="3" stroke-linecap="round"/>
+</svg>

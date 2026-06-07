@@ -1,0 +1,24 @@
+{
+  "name": "Focus & Flow",
+  "short_name": "Focus",
+  "description": "A calm daily focus ritual. Three tasks. One session at a time.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F8F7",
+  "theme_color": "#2E7D8A",
+  "icons": [
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

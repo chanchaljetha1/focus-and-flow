@@ -61,6 +61,11 @@ interface FocusFlowDB extends DBSchema {
 // --- DB singleton ---
 
 let dbPromise: Promise<IDBPDatabase<FocusFlowDB>> | null = null;
+let _idbUnavailable = false;
+
+export function isIdbUnavailable(): boolean {
+  return _idbUnavailable;
+}
 
 export function getDB(): Promise<IDBPDatabase<FocusFlowDB>> {
   if (!dbPromise) {
@@ -69,6 +74,9 @@ export function getDB(): Promise<IDBPDatabase<FocusFlowDB>> {
         db.createObjectStore("sessions", { keyPath: "id" });
         db.createObjectStore("days", { keyPath: "date" });
       },
+    }).catch((err) => {
+      _idbUnavailable = true;
+      throw err;
     });
   }
   return dbPromise;
