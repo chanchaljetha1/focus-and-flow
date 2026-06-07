@@ -1,8 +1,6 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getSessionCount } from "@/lib/progressive";
 
@@ -21,7 +19,7 @@ function formatBreakTime(totalSec: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export default function BreakPage() {
+function BreakContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -301,5 +299,13 @@ export default function BreakPage() {
         }
       `}</style>
     </main>
+  );
+}
+
+export default function BreakPage() {
+  return (
+    <Suspense>
+      <BreakContent />
+    </Suspense>
   );
 }

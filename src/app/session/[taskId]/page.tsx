@@ -1,8 +1,6 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
-import { useEffect, useRef, useState, useCallback } from "react";
+import { Suspense, useEffect, useRef, useState, useCallback } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { addSession, getTodayDay, saveDay, Interruption } from "@/lib/db";
 import { incrementSessionCount, getSessionCount } from "@/lib/progressive";
@@ -34,7 +32,7 @@ function formatTime(ms: number): string {
 }
 
 
-export default function SessionPage() {
+function SessionContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -420,6 +418,14 @@ export default function SessionPage() {
         }
       `}</style>
     </main>
+  );
+}
+
+export default function SessionPage() {
+  return (
+    <Suspense>
+      <SessionContent />
+    </Suspense>
   );
 }
 
