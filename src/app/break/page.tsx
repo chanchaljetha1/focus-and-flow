@@ -27,6 +27,8 @@ function BreakContent() {
   const taskName = searchParams.get("name") ?? "";
   const slot = searchParams.get("slot") ?? "-1";
   const isFirstSession = searchParams.get("firstSession") === "1";
+  const focusMin = searchParams.get("focusMin");
+  const totalMin = searchParams.get("totalMin");
 
   const [breakSeconds, setBreakSeconds] = useState(0);
   const [sessionCount, setSessionCount] = useState(0);
@@ -206,6 +208,21 @@ function BreakContent() {
         >
           {formatBreakTime(breakSeconds)}
         </p>
+
+        {/* Focus integrity summary — only if there were interruptions */}
+        {focusMin && totalMin && (
+          <p
+            style={{
+              fontFamily: "var(--ff-font-body)",
+              fontSize: "12px",
+              color: "var(--ff-ink-muted)",
+              margin: "var(--ff-space-4) 0 0",
+              textAlign: "center",
+            }}
+          >
+            {focusMin} of {totalMin} minutes in focus.
+          </p>
+        )}
 
         {/* Your reset field — progressive disclosure at 3+ sessions */}
         {showResetField && (

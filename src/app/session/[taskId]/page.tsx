@@ -115,12 +115,13 @@ function SessionContent() {
       }
       if (msg.type === "COMPLETE") {
         const interruptions = interruptionsRef.current;
+        const interruptedMs = interruptions.reduce(
+          (acc, i) => acc + (i.returnedAt - i.leftAt),
+          0
+        );
+        const actualMin = Math.round((totalDurationMs - interruptedMs) / 1000 / 60);
+
         if (interruptions.length > 0) {
-          const interruptedMs = interruptions.reduce(
-            (acc, i) => acc + (i.returnedAt - i.leftAt),
-            0
-          );
-          const actualMin = Math.round((totalDurationMs - interruptedMs) / 1000 / 60);
           setFocusSummary(`${actualMin} of ${totalDuration} minutes in focus.`);
         }
 
@@ -135,7 +136,14 @@ function SessionContent() {
           setShowGarden(true);
           const isFirstSession = getSessionCount() === 1;
           const gardenDelay = isFirstSession ? 2000 : 1500;
-          const breakUrl = `/break?taskId=${encodeURIComponent(taskId)}&name=${encodeURIComponent(taskName)}&slot=${slotIndex}${isFirstSession ? "&firstSession=1" : ""}`;
+
+          // Build break URL with focus integrity data if there were interruptions
+          let breakUrl = `/break?taskId=${encodeURIComponent(taskId)}&name=${encodeURIComponent(taskName)}&slot=${slotIndex}`;
+          if (isFirstSession) breakUrl += "&firstSession=1";
+          if (interruptions.length > 0) {
+            breakUrl += `&focusMin=${actualMin}&totalMin=${totalDuration}`;
+          }
+
           setTimeout(() => router.push(breakUrl), gardenDelay);
         }, 600);
       }
